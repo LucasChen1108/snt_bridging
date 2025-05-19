@@ -1,5 +1,6 @@
 {
     "files.associations": {
-        "STACK2.C": "cpp"
+        "STACK2.C": "cpp",
+        "ENCODE.C": "cpp"
     }
 }
