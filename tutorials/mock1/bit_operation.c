@@ -18,21 +18,21 @@ uint32_t getBit(uint32_t n, uint32_t k)
     return ((n >> k) & 1);
 }
 
-uint32_t isPowerOf2(uint32_t n)
+void isPowerOf2(uint32_t n)
 {
-    if(n & (n-1))
-    {
+    if (n == 0)
         printf("Isn't the power of 2. \n");
-    }
+    else if(n & (n-1))
+        printf("Isn't the power of 2. \n");
     else    
         printf("Is the power of 2. \n");
 }
 
-uint32_t swap(uint32_t a, uint32_t b)
+void swap(uint32_t *a, uint32_t *b)
 {
-    b = a ^ b; // a ^ b 是为了表明位数不同之处，再将不同之处反转即可得对方
-    a ^= b;
-    b ^= a;
+    *b = *a ^ *b; // a ^ b 是为了表明位数不同之处，再将不同之处反转即可得对方
+    *a ^= *b;
+    *b ^= *a;
 }
 
 uint32_t reverseBits(uint32_t n)
@@ -44,6 +44,7 @@ uint32_t reverseBits(uint32_t n)
         result |= (n & 1);
         n >>= 1;
     }
+    return result;
 }
 
 uint32_t rotateLeft(uint32_t n, uint32_t k)
@@ -56,7 +57,7 @@ uint32_t rotateLeft(uint32_t n, uint32_t k)
 }
 
 //分治法！！！！！！！！！！！！！ （类似于merge sort）
-uint32_t reverseBits(uint32_t n) {
+uint32_t reverseBits2(uint32_t n) {
     n = (n >> 1)  & 0x55555555 | (n & 0x55555555) << 1;
     n = (n >> 2)  & 0x33333333 | (n & 0x33333333) << 2;
     n = (n >> 4)  & 0x0F0F0F0F | (n & 0x0F0F0F0F) << 4;
@@ -65,22 +66,70 @@ uint32_t reverseBits(uint32_t n) {
     return n;
 }
 
-/*
-高级题目
+/*生成位掩码 问题：编写函数generateMask，生成低n位为1的掩码。*/
 
-位域打包日期
-问题：定义结构体，使用位域存储日期（日5位、月4位、年7位），编写函数打包和解包。
+uint32_t generateMask(uint32_t n) //good method
+{
+    uint32_t result = 0;
+    if (n >= 32) {return 0xffffffff;}
+    else if(n == 0) {return 0;}
+    else    
+        return ((1 << n) - 1);
+}
 
-生成位掩码
-问题：编写函数generateMask，生成低n位为1的掩码。
+//接受两个无符号整数，返回二进制中不同位的个数。
+uint32_t hammingDistance(uint32_t a, uint32_t b)
+{
+    a = a ^ b; //the different digits will become 1
+    uint32_t n = 0;
+    while (a != 0)
+    {
+        a = a & (a -1);
+        n ++;
+    }
+    return n;
+}
 
-计算汉明距离
-问题：编写函数hammingDistance，接受两个无符号整数，返回二进制中不同位的个数。
+uint32_t assembleBits(uint8_t a, uint8_t b, uint8_t c) //a has four bits, b has three bits, c has five bits
+{
+    uint32_t result = 0;
+    result = (a << 3) | b;
+    result = (result << 5) | c;
+    return result;
+}
 
-位组装
-问题：编写函数assembleBits，将3个小位段（4位、3位、5位）组装成一个整数。
+uint32_t add(uint32_t a, uint32_t b)
+{
+    if ((a & b) == 0)
+        return a|b;
+    else 
+        return add((a & b) << 1, (a ^ b));
+}
 
-位操作加法
-问题：编写函数add，仅用位操作实现两个整数加法，不用+。
+uint32_t add2(uint32_t a, uint32_t b) //相较于递归，此方法使用迭代更佳
+{
+    while (b != 0) {
+        uint32_t carry = (a & b) << 1;
+        a = a ^ b;
+        b = carry;
+    }
+    return a;
+}
 
-*/
+
+uint64_t times(uint32_t a, uint32_t b)
+{
+    uint32_t cnt = 0;
+    uint64_t result = 0;
+    while (b != 0)
+    {
+        if (b & 1)
+        {
+            result += (a<<cnt);
+        }
+        cnt ++;
+        b >>= 1;
+    }
+    return result;
+}
+
