@@ -39,6 +39,9 @@ int main(void)
                 continue;
             }
         }
+
+
+
         node *prev = first;
         temp = first;
         node *new_node = (node *)malloc(sizeof(node));
@@ -67,6 +70,8 @@ int main(void)
         }
     } 
  
+
+    
     temp = first; 
     while (temp!=NULL) 
     { 
