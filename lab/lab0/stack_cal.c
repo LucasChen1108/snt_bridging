@@ -102,9 +102,8 @@ void push(int n)
 
 int pop(void)
 {
-    if (currsize < 1) {
-        return 0; // Or handle empty stack differently
-    }
+    if (currsize < 1) 
+        return 0;   
     tray *ptr = top;
     int value = ptr->value; // Save the value
     top = top->below;       // Update top
@@ -119,7 +118,7 @@ void free_all(void)
     while (top != NULL)
     {
         ptr = top;
-        top = ptr->below;
+        top = top->below;
         free(ptr);
     }
 }
