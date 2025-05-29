@@ -9,8 +9,6 @@ int rotate_l(int x, int n)
         truncate = x & 0x8000;
         x = x << 1;
         if(truncate != 0) x |= 1;
-        x | 0x00007777;
-        
     }
     return x;
 }
