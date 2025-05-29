@@ -10,11 +10,10 @@ typedef struct node{
     int balance;
     struct node* next;
 }node;
-node *customers[SIZE];
 node *front, *rear;
 int count = 0;
 node *insert(node this1);
-node *delete();
+node *delete(void);
 void get_data(node *ptr);
 void print_data(node *ptr);
 
@@ -87,7 +86,7 @@ node *insert(node this1)
     return ptr;
 }
 
-node *delete()
+node *delete(void)
 {
     static node this1;
     node *next;

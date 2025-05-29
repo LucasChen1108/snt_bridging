@@ -65,7 +65,7 @@ int main()
                 key[strcspn(key, "\n")] = '\0'; // Remove newline
                 search = serch_book(head, key, &location);
                 if (search == NULL)
-                    printf("yes such book\n\n");
+                    printf("no such book\n\n");
                 else
                 {
                     printf("It is book %d\n", location);
