@@ -51,6 +51,38 @@ int countDiretCalls(int route[][2], int size, int route_cnt, int f)
     return cnt;
 }
 
+// BFS
+int canReach(int route[][2], int size, int route_cnt, int start, int target)
+{
+    int graph[size][size];
+    for(int i=0; i<size; i++)
+        for(int j=0; j<size; j++) graph[i][j] = 0;
+    int front = 0, rear = 0, queue[size];
+    int visited[size];
+    for(int i=0; i<size; i++) visited[i] = 0;
+
+    for(int i = 0; i < route_cnt; i++)
+        graph[route[i][0]][route[i][1]] = 1;
+    queue[rear++] = start;
+    visited[start] = 1;
+
+    while(front < rear)
+    {
+        int u = queue[front++];
+
+        for(int v = 0; v < size; v++){
+            if(graph[u][v] == 1 && visited[v] == 0)
+            {
+                visited[v] = 1;
+                queue[rear++] = v;
+
+                if(v == target) return 1;
+            }
+        }
+    }
+    return 0;
+}
+/* DFS
 int canReach(int route[][2], int size, int route_cnt, int f, int g)
 {
     if(f == g) return 1;
@@ -73,6 +105,7 @@ int canReach(int route[][2], int size, int route_cnt, int f, int g)
     }
     return 0;
 }
+*/
 
 int main()
 {
